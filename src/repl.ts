@@ -1,7 +1,4 @@
 export function cleanInput(input: string): string[] {
-    return input
-        .trim()
-        .toLowerCase()
-        .split(/\s+/)
-        .filter(Boolean);
+    const cleanedInput = input.trim().toLowerCase().split(" ");
+    return cleanedInput;
 }
