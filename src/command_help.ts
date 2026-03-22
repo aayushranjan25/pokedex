@@ -1,8 +1,10 @@
-export function helpCommand():void{ 
-   console.log(`Welcome to the Pokedex!
-Usage:
-
-help: Displays a help message
-exit: Exit the Pokedex
-`);
+import { State } from "./state.js";
+export function helpCommand(state: State):void{
+   const commands = state.commands; 
+   console.log("Welcome to the Pokedex!");
+   for (const commandName in commands) {
+    const command = commands[commandName];
+    console.log(`${command.name}: ${command.description}`);
+   }
 }
+  
