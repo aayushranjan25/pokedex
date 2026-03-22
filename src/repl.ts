@@ -1,5 +1,6 @@
 import { createInterface } from "node:readline";
-import { workerData } from "node:worker_threads";
+import { getCommands } from "./command.js";
+import { convertProcessSignalToExitCode } from "node:util";
 
 export function cleanInput(input: string): string[] {
     const cleanedInput = input.trim().toLowerCase().split(" ").filter((word) => word !== "");
@@ -19,7 +20,13 @@ export function startREPL() {
             rl.prompt();
             return;
         }
-        console.log(`Your command was: ${cleanedInput[0]}`);            
+        const commands = getCommands();
+        const command = commands[cleanedInput[0]];
+        if (command) {
+            command.callback(commands);
+        } else {
+            console.log(`Unknown command: ${cleanedInput[0]}`);
+        }
         rl.prompt();
         });
 }
